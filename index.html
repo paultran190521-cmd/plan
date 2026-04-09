@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlanFlow – Lập Kế Hoạch & Theo Dõi Tiến Độ</title>
+  <meta name="description" content="PlanFlow – Ứng dụng lập kế hoạch và theo dõi tiến độ dự án hiện đại với Kanban, Timeline và Dashboard phân tích." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="2" width="10" height="10" rx="2" fill="#1992b0"/>
+          <rect x="16" y="2" width="10" height="10" rx="2" fill="#ff9500"/>
+          <rect x="2" y="16" width="10" height="10" rx="2" fill="#ff9500" opacity="0.6"/>
+          <rect x="16" y="16" width="10" height="10" rx="2" fill="#1992b0" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="logo-text">PlanFlow</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-view="dashboard" id="nav-dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item" data-view="projects" id="nav-projects">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Dự Án
+      </a>
+      <a href="#" class="nav-item" data-view="kanban" id="nav-kanban">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg>
+        Kanban
+      </a>
+      <a href="#" class="nav-item" data-view="timeline" id="nav-timeline">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Timeline
+      </a>
+      <a href="#" class="nav-item" data-view="tasks" id="nav-tasks">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Nhiệm Vụ
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">P</div>
+      <div class="user-info">
+        <div class="user-name">PlanFlow User</div>
+        <div class="user-role">Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="menu-btn" id="menu-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" id="btn-add-main">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm Mới
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard View -->
+    <section class="view" id="view-dashboard">
+      <div class="view-header">
+        <h1>Tổng Quan</h1>
+        <p class="view-subtitle">Chào mừng trở lại! Đây là tình trạng dự án của bạn hôm nay.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card" id="stat-projects">
+          <div class="stat-icon stat-icon-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-projects">0</div>
+            <div class="stat-label">Tổng Dự Án</div>
+          </div>
+          <div class="stat-trend positive">↑ 2</div>
+        </div>
+        <div class="stat-card" id="stat-tasks-card">
+          <div class="stat-icon stat-icon-orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-tasks">0</div>
+            <div class="stat-label">Tổng Nhiệm Vụ</div>
+          </div>
+          <div class="stat-trend positive">↑ 5</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-in-progress">0</div>
+            <div class="stat-label">Đang Thực Hiện</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-completed">0</div>
+            <div class="stat-label">Hoàn Thành</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Projects + Progress -->
+      <div class="dashboard-grid">
+        <div class="card" id="recent-projects-card">
+          <div class="card-header">
+            <h2>Dự Án Gần Đây</h2>
+            <button class="link-btn" data-view="projects">Xem tất cả →</button>
+          </div>
+          <div class="project-list" id="recent-projects-list">
+            <div class="empty-state-small">Chưa có dự án nào. Hãy tạo dự án đầu tiên!</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Tiến Độ Tổng Thể</h2>
+          </div>
+          <div class="progress-chart-area" id="progress-chart-area">
+            <canvas id="progress-chart" width="200" height="200"></canvas>
+            <div class="chart-center-text">
+              <div class="chart-percent" id="chart-percent">0%</div>
+              <div class="chart-label-small">hoàn thành</div>
+            </div>
+          </div>
+          <div class="chart-legend" id="chart-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#1992b0"></span> Đang làm</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ff9500"></span> Chờ xử lý</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Hoàn thành</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Deadlines -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Deadline Sắp Tới</h2>
+        </div>
+        <div id="upcoming-deadlines-list" class="upcoming-list">
+          <div class="empty-state-small">Không có deadline sắp tới.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects View -->
+    <section class="view hidden" id="view-projects">
+      <div class="view-header">
+        <h1>Dự Án</h1>
+        <p class="view-subtitle">Quản lý tất cả dự án của bạn.</p>
+      </div>
+      <div class="projects-grid" id="projects-grid">
+        <div class="project-card-add" id="btn-add-project">
+          <div class="add-icon">+</div>
+          <div>Tạo Dự Án Mới</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kanban View -->
+    <section class="view hidden" id="view-kanban">
+      <div class="view-header">
+        <h1>Kanban Board</h1>
+        <div class="view-controls">
+          <select class="select-control" id="kanban-project-select">
+            <option value="">-- Chọn dự án --</option>
+          </select>
+        </div>
+      </div>
+      <div class="kanban-board" id="kanban-board">
+        <div class="kanban-col" data-status="todo" id="col-todo">
+          <div class="kanban-col-header">
+            <span class="col-dot col-dot-orange"></span>
+            <span class="col-title">Cần Làm</span>
+            <span class="col-count" id="count-todo">0</span>
+          </div>
+          <div class="kanban-cards" id="cards-todo" data-status="todo"></div>
+          <button class="btn-add-card" data-status="todo">+ Thêm nhiệm vụ</button>
+        </div>
+        <div class="kanban-col" data-status="inprogress" id="col-inprogress">
+          <div class="kanban-col-header">
+            <span class="col-dot col-dot-blue"></span>
+            <span class="col-title">Đang Làm</span>
+            <span class="col-count" id="count-inprogress">0</span>
+          </div>
+          <div class="kanban-cards" id="cards-inprogress" data-status="inprogress"></div>
+          <button class="btn-add-card" data-status="inprogress">+ Thêm nhiệm vụ</button>
+        </div>
+        <div class="kanban-col" data-status="review" id="col-review">
+          <div class="kanban-col-header">
+            <span class="col-dot col-dot-purple"></span>
+            <span class="col-title">Đánh Giá</span>
+            <span class="col-count" id="count-review">0</span>
+          </div>
+          <div class="kanban-cards" id="cards-review" data-status="review"></div>
+          <button class="btn-add-card" data-status="review">+ Thêm nhiệm vụ</button>
+        </div>
+        <div class="kanban-col" data-status="done" id="col-done">
+          <div class="kanban-col-header">
+            <span class="col-dot col-dot-green"></span>
+            <span class="col-title">Hoàn Thành</span>
+            <span class="col-count" id="count-done">0</span>
+          </div>
+          <div class="kanban-cards" id="cards-done" data-status="done"></div>
+          <button class="btn-add-card" data-status="done">+ Thêm nhiệm vụ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline View -->
+    <section class="view hidden" id="view-timeline">
+      <div class="view-header">
+        <h1>Timeline</h1>
+        <div class="view-controls">
+          <select class="select-control" id="timeline-project-select">
+            <option value="">-- Chọn dự án --</option>
+          </select>
+        </div>
+      </div>
+      <div class="timeline-container" id="timeline-container">
+        <div class="empty-state">
+          <div class="empty-icon">📅</div>
+          <div>Chọn một dự án để xem timeline</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tasks View -->
+    <section class="view hidden" id="view-tasks">
+      <div class="view-header">
+        <h1>Nhiệm Vụ</h1>
+        <div class="view-controls">
+          <input type="text" class="search-input" id="task-search" placeholder="Tìm kiếm nhiệm vụ..."/>
+          <select class="select-control" id="task-filter-status">
+            <option value="">Tất cả trạng thái</option>
+            <option value="todo">Cần Làm</option>
+            <option value="inprogress">Đang Làm</option>
+            <option value="review">Đánh Giá</option>
+            <option value="done">Hoàn Thành</option>
+          </select>
+          <select class="select-control" id="task-filter-priority">
+            <option value="">Tất cả mức độ</option>
+            <option value="high">Cao</option>
+            <option value="medium">Trung Bình</option>
+            <option value="low">Thấp</option>
+          </select>
+        </div>
+      </div>
+      <div class="tasks-table-wrapper">
+        <table class="tasks-table" id="tasks-table">
+          <thead>
+            <tr>
+              <th>Nhiệm Vụ</th>
+              <th>Dự Án</th>
+              <th>Ưu Tiên</th>
+              <th>Trạng Thái</th>
+              <th>Deadline</th>
+              <th>Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-tbody">
+            <tr><td colspan="6" class="empty-cell">Chưa có nhiệm vụ nào.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal: Add/Edit Project -->
+  <div class="modal-overlay hidden" id="modal-project">
+    <div class="modal" id="modal-project-box">
+      <div class="modal-header">
+        <h3 id="modal-project-title">Tạo Dự Án Mới</h3>
+        <button class="modal-close" id="modal-project-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Tên dự án *</label>
+          <input type="text" id="proj-name" placeholder="Nhập tên dự án..." />
+        </div>
+        <div class="form-group">
+          <label>Mô tả</label>
+          <textarea id="proj-desc" placeholder="Mô tả ngắn về dự án..." rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ngày bắt đầu</label>
+            <input type="date" id="proj-start" />
+          </div>
+          <div class="form-group">
+            <label>Deadline</label>
+            <input type="date" id="proj-end" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Màu dự án</label>
+          <div class="color-picker" id="proj-color-picker">
+            <div class="color-opt selected" data-color="#1992b0" style="background:#1992b0"></div>
+            <div class="color-opt" data-color="#ff9500" style="background:#ff9500"></div>
+            <div class="color-opt" data-color="#22c55e" style="background:#22c55e"></div>
+            <div class="color-opt" data-color="#a855f7" style="background:#a855f7"></div>
+            <div class="color-opt" data-color="#ef4444" style="background:#ef4444"></div>
+            <div class="color-opt" data-color="#f59e0b" style="background:#f59e0b"></div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="proj-editing-id" />
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-project-cancel">Hủy</button>
+        <button class="btn btn-primary" id="modal-project-save">Lưu Dự Án</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Task -->
+  <div class="modal-overlay hidden" id="modal-task">
+    <div class="modal" id="modal-task-box">
+      <div class="modal-header">
+        <h3 id="modal-task-title">Thêm Nhiệm Vụ</h3>
+        <button class="modal-close" id="modal-task-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Tên nhiệm vụ *</label>
+          <input type="text" id="task-name" placeholder="Nhập tên nhiệm vụ..." />
+        </div>
+        <div class="form-group">
+          <label>Mô tả</label>
+          <textarea id="task-desc" placeholder="Chi tiết nhiệm vụ..." rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Dự án</label>
+            <select id="task-project-id"></select>
+          </div>
+          <div class="form-group">
+            <label>Ưu tiên</label>
+            <select id="task-priority">
+              <option value="low">Thấp</option>
+              <option value="medium" selected>Trung Bình</option>
+              <option value="high">Cao</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <select id="task-status">
+              <option value="todo">Cần Làm</option>
+              <option value="inprogress">Đang Làm</option>
+              <option value="review">Đánh Giá</option>
+              <option value="done">Hoàn Thành</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Deadline</label>
+            <input type="date" id="task-deadline" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tiến độ (%)</label>
+          <div class="progress-slider-wrap">
+            <input type="range" id="task-progress" min="0" max="100" value="0" step="5" />
+            <span id="task-progress-label">0%</span>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="task-editing-id" />
+      <input type="hidden" id="task-default-status" />
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-task-cancel">Hủy</button>
+        <button class="btn btn-primary" id="modal-task-save">Lưu Nhiệm Vụ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
